@@ -33,7 +33,6 @@ from ..document.document import DEFAULT_TITLE, Document
 from ..model import Model
 from ..settings import settings
 from ..util.compiler import bundle_all_models
-from ..util.string import encode_utf8
 from .bundle import bundle_for_objs_and_resources
 from .util import FromCurdoc
 from .util import (check_models_or_docs, check_one_model_or_doc, div_for_render_item, find_existing_docs, html_page_for_render_items,
@@ -97,7 +96,7 @@ def autoload_static(model, resources, script_path):
         docid = item.get('docid', ''),
     )
 
-    return encode_utf8(js), encode_utf8(tag)
+    return js, tag
 
 def components(models, wrap_script=True, wrap_plot_info=True, theme=FromCurdoc):
     ''' Return HTML components to embed a Bokeh plot. The data for the plot is
@@ -214,7 +213,6 @@ def components(models, wrap_script=True, wrap_plot_info=True, theme=FromCurdoc):
     script += script_for_render_items(docs_json, render_items)
     if wrap_script:
         script = wrap_in_script_tag(script)
-    script = encode_utf8(script)
 
     if wrap_plot_info:
         results = list(div_for_render_item(item) for item in render_items)
